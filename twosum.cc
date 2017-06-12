@@ -9,7 +9,7 @@
 */
 
 /*
- * soulution:O(n)--遍历一遍数组，没次查找是否有已遍历过的元素使两数的和为给定值，保证O(n)的条件是要能够在常数时间内进行查找，所以使用hash表
+ * soulution:O(n)--遍历一遍数组，每次查找是否有已遍历过的元素使两数的和为给定值，保证O(n)的条件是要能够在常数时间内进行查找，所以使用hash表
 class Solution {
 public:
 vector<int> twoSum(vector<int> &numbers, int target)
