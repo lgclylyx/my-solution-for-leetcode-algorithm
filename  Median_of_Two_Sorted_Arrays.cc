@@ -47,3 +47,54 @@ public:
     }
 };
 */
+
+/*
+ * 理论上的复杂度为O(log(m+n)),但是在测试时没有上一种解法快，应该在最后那个递归处有问题
+ * （数组按升序排序的情况）
+ * 题目要求找到median，这对于一个m+n长度的数组，则其median肯定在(m+n)/2处,所以设k=(m+n)/2，且对于长度为m和n的两个数组(m<n)为a,b,则在a和b中分别取i=min(m,k/2)和j=k-min(m,k/2),
+ * 则在该位置处有三种情况，（1）a和b在该位置处相等，则肯定为median;（2）a在该位置小于b，则可以将a中从开始到该位置的值舍去，因为合并后该处肯定不会为median，这样就相当于将i向右移动，j向左移动，且保持相加
+ * 为K。（3）同理，a在该位置大于b时，则可以将b中的k/2长度舍去；
+ * 这可以推广到不是寻找median,对任意的k都可以按此种方法求解，只是初始值不同而已
+class Solution {
+public:
+    //get the kth number of two sorted array
+    double findkth(vector<int>::iterator a,int m,
+                vector<int>::iterator b,int n,
+                int k)
+    {
+        if(m >  n)
+            return findkth(b,n,a,m,k);
+        if(m == 0)
+            return b[k-1];
+        if(k == 1)
+            return min(*a,*b);
+
+        int pa = min(k/2,m),pb = k - pa;
+        if(*(a + pa - 1) < *(b + pb -1))
+            return findkth(a+pa,m-pa,b,n,k-pa);
+        else if(*(a + pa -1) > *(b + pb -1))
+            return findkth(a,m,b+pb,n-pb,k-pb);
+        else
+            return *(a+pa-1);
+    }
+
+    double findMedianSortedArrays(vector<int>& nums1, vector<int>& nums2) {
+        vector<int>::iterator a = nums1.begin();
+        vector<int>::iterator b = nums2.begin();
+        int total = nums1.size() + nums2.size();
+
+        // judge the total num of two arrays is odd or even
+        if(total & 0x1)
+            return findkth(a,nums1.size(),
+                           b,nums2.size(),
+                           total/2+1);
+        else
+            return (findkth(a,nums1.size(),
+                           b,nums2.size(),
+                           total/2) +
+                    findkth(a,nums1.size(),
+                            b,nums2.size(),
+                            total/2 + 1))/2;
+    }
+};
+ */
