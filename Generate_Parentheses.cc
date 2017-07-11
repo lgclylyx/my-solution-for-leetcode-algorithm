@@ -14,7 +14,7 @@ For example, given n = 3, a solution set is:
 */
 
 /*
-	迭代版本
+	迭代版本，相当于对于一个binarytree进行中序遍历
 
 
     vector<string> generateParenthesis(int n) {
