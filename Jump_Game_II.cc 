@@ -1,0 +1,36 @@
+/*
+ Given an array of non-negative integers, you are initially positioned at the first index of the array.
+
+Each element in the array represents your maximum jump length at that position.
+
+Your goal is to reach the last index in the minimum number of jumps.
+
+For example:
+Given array A = [2,3,1,1,4]
+
+The minimum number of jumps to reach the last index is 2. (Jump 1 step from index 0 to 1, then 3 steps to the last index.)
+
+Note:
+You can assume that you can always reach the last index.
+*/
+
+/*
+
+	在位置i处，对于[i,i+nums[i]]范围内的位置，只需一跳。用贪心的思想，对于每一跳，都尽可能的向更远处延伸，例如，对于两跳来说，在位置i，范围[i,i+nums[i]]内，选择能延伸最大的位置，i 属于max(i+nums[i])，则两跳能延伸的最远位置为max(i+nums[i])，则每一跳都为最远，最终的跳数也就最小。
+
+ 	int jump(vector<int>& nums) {
+        int result = 0, begin = 0, end = 0, tend = 0;
+        for(; begin < nums.size()-1; begin++){
+            tend = max(tend,begin+nums[begin]);
+            if(tend == nums.size()-1){
+                result++;
+                break;
+            }
+            if(begin == end){
+                result++;
+                end = tend;
+            }
+        }
+        return result;
+    }
+*/
