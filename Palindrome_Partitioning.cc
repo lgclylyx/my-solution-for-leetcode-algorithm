@@ -79,7 +79,7 @@ Return
 
 /*
 
-	improvement;
+	improvement;DFS
 
     vector<vector<string>> partition(string s) {
         vector<vector<string>> result;
@@ -123,4 +123,53 @@ Return
         }
         return true;
     }  
+*/
+
+/*
+
+    将其看做一张图，进行深度优先遍历。并保存已经遍历过的节点的值，下次遍历到该节点是直接返回。
+
+    vector<vector<string>> partition(string s) {
+        unordered_map<string,vector<vector<string>>> um;
+        return solver(um,s);
+    }
+    vector<vector<string>> solver(unordered_map<string,vector<vector<string>>>& um,string s){
+        if(um.find(s) != um.end())
+            return um[s];
+        
+        vector<vector<string>> res,rest;
+        if(s.size() <= 1){
+            vector<string> tmp;
+            if(s.size() == 1)
+                tmp.push_back(s);
+            res.emplace_back(tmp);
+            um[s] = res;
+            return res;
+        }
+        
+        for(int i = 1; i <= s.size(); i++){
+            string t = s.substr(0,i);
+            if(isa(t)){
+                string left = s.substr(i);
+                rest = solver(um,left);
+                for(auto c : rest){
+                    c.insert(c.begin(),t);
+                    res.push_back(c);
+                }
+            }
+        }
+        
+        um[s] = res;
+        return res;
+    }
+    bool isa(string& str){
+        if(str.empty())
+            return true;
+        int low = 0, high = str.size()-1;
+        while(low < high){
+            if(str[low++] != str[high--])
+                return false;
+        }
+        return true;
+    }
 */
