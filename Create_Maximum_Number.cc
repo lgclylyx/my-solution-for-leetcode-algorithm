@@ -56,10 +56,12 @@ return [9, 8, 9]
 		return start1 != a.size();
 	}
 
+	//从nums中生成一个长度为k的最大子数组
 	vector<int> get_max_sub_array(const vector<int> &nums, const int& k) {
 		vector<int> res(k,0);
 		int len = 0 , n = nums.size();
 		for (int i = 0; i < n; i++) {
+			//len+n-i>k代表返回数组现在的长度加上现在处理的位置i到数组末尾的长度要大于指定的长度，即一定要能生成定长的数组
 			while (len && len + n - i > k && nums[i] > res[len - 1])
 				len--;
 			if (len < k)
