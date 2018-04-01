@@ -8,6 +8,12 @@ For example, given n = 12, return 3 because 12 = 4 + 4 + 4; given n = 13, return
 
 	DP.dp[i],代表的是值i的最小次数。
 	实际上这相当于一个递归的过程的正过程。
+	
+	(1)dp[i]表示值为i时需要的数的最小数目；
+	(2)已知选择K可以从上一步导致dp[i]；
+	(3)则dp[i]可以由子问题dp[i-K]推到得到；
+	(4)证明dp[i-K]是子问题的最优解；
+	(5)所以最优子结构dp[i] = min(dp[i],dp[i-K]+1),所以在原问题中只使用一个子问题和在决定一个最优解中使用哪个子问题时有[1^2,sqrt(i)^2]种选择
 
     int numSquares(int n) {
         if(n <= 0)
